@@ -1,0 +1,113 @@
+:root {
+    --light-blue: #f0f4f8;
+    --deep-blue: #1f3a93;
+    --orange: #ff6f00;
+    --dark: #333;
+  }
+
+  body {
+    background-color: var(--light-blue);
+    color: var(--dark);
+    font-family: 'Segoe UI', sans-serif;
+    padding-top: 70px;
+  }
+
+  .custom-navbar {
+    background-color: var(--light-blue);
+  }
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1030;
+  }
+
+  .navbar-brand {
+    font-weight: bold;
+    color: var(--deep-blue);
+  }
+
+  .nav-link {
+    color: var(--deep-blue);
+    font-weight: 500;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--orange);
+  }
+
+  .hero {
+    background-color: #ffffff;
+    padding: 80px 20px;
+    text-align: center;
+  }
+
+  .hero h1 {
+    color: var(--deep-blue);
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 700px;
+    margin: auto;
+  }
+
+  .btn-orange {
+    background-color: var(--orange);
+    border: none;
+    color: #fff;
+    font-weight: 500;
+  }
+
+  .btn-orange:hover {
+    background-color: #e65c00;
+  }
+
+  .service-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .contact-form {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .map-embed {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+  }
+
+  footer {
+    background-color: var(--deep-blue);
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 60px;
+  }
+
+  .whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+
+  .whatsapp-float img {
+    width: 55px;
+    height: 55px;
+  }

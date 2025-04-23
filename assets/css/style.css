@@ -351,6 +351,41 @@ h1, h2, h3, h4, h5, h6 {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
+
+/* Custom Logo Animation */
+.logo-animated {
+  height: 40px;
+  animation: logoFadeIn 1.2s ease forwards, logoPulse 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 2px rgba(255, 87, 34, 0.6));
+  transition: transform 0.3s ease;
+}
+
+.logo-animated:hover {
+  transform: scale(1.1) rotate(2deg);
+}
+
+@keyframes logoFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes logoPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px rgba(255, 87, 34, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(255, 87, 34, 0.8));
+  }
+}
+
+
+/* Theme Toggle Button */
 #themeToggle {
   background-color: rgba(255, 255, 255, 0.1);
   color: #fff;

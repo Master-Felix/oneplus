@@ -275,8 +275,13 @@ document.addEventListener("DOMContentLoaded", () => {
     initTheme();
     initPricingToggle();
     initCollapsible();
+    AOS.init();
   } catch (error) {
     console.error('Error during initialization:', error);
     showToast('Something went wrong. Please refresh the page.', 'danger');
   }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  AOS.init();
 });

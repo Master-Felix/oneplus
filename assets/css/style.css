@@ -11,6 +11,11 @@
   --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.2);
   --border-radius: 12px;
+  --primary-color: #ff5722;
+  --secondary-color: #1f3a93;
+  --light-color: #f8f9fa;
+  --dark-color: #121212;
+  --font-family: "Poppins", sans-serif;
 }
 
 /* Base Styles */
@@ -68,14 +73,29 @@ body {
   transition: background-color var(--transition), color var(--transition);
 }
 
+/* General Header Styling */
 h1, h2, h3, h4, h5, h6 {
+  color: #ff5722; /* Default orange color for all headers */
   font-weight: 600;
   margin-top: 0;
 }
 
-p, ul, li, a, button {
-  font-weight: 400;
-  margin-bottom: 1rem;
+/* Override for About Us Section */
+#about h1, #about h2, #about h3, #about h4, #about h5, #about h6 {
+  color: #000; /* Retain black color for About Us section */
+}
+
+#about h2 {
+  color: #000 !important; /* Force black color for About Us header */
+}
+
+/* Override for Why Choose Us Section */
+#features h1, #features h2, #features h3, #features h4, #features h5, #features h6 {
+  color: #000; /* Retain black color for Why Choose Us section */
+}
+
+#features h2 {
+  color: #000 !important; /* Force black color for Why Choose Us header */
 }
 
 /* ========================= */
@@ -160,6 +180,7 @@ p, ul, li, a, button {
     height: 2px;
     background-color: #fff;
     margin: 0;
+    transform: translateY(-8px);
   }
 
   .navbar-toggler-icon::before,
@@ -552,24 +573,14 @@ blockquote {
 }
 
 /* Cards */
-.service-card {
-  border: none;
-  border-radius: 12px;
-  background-color: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  padding: 1.5rem;
-}
-
-/* Cards */
-.service-card,
-.pricing-card {
+.card {
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
   transition: transform var(--transition), box-shadow var(--transition);
-  will-change: transform, box-shadow;
 }
 
-.service-card:hover,
-.pricing-card:hover {
-  transform: translateY(-10px);
+.card:hover {
+  transform: translateY(-5px);
   box-shadow: var(--shadow-md);
 }
 
@@ -578,16 +589,8 @@ blockquote {
   padding: 2rem;
   background-color: #fff;
   border: 1px solid #eee;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  transition: transform var(--transition);
 }
 
-.pricing-card:hover {
-  transform: translateY(-5px);
-}
-
-/* Pricing Toggle */
 .pricing-toggle {
   display: flex;
   align-items: center;
@@ -971,4 +974,73 @@ img:hover {
 #read-more .btn-orange {
   font-size: 1rem;
   padding: 0.5rem 1.5rem;
+}
+
+.about-text {
+  max-width: 800px;
+}
+
+/* Why Us Section */
+#features {
+  background-color: var(--light-color);
+  padding: 5rem 1rem;
+}
+
+#features h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+#features p {
+  color: var(--text-light);
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+}
+
+.feature-card {
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+  text-align: center;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-md);
+}
+
+.feature-card i {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.feature-card h5 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  #features {
+    display: none; /* This would hide the section */
+  }
+}
+
+#features h1, #features h2, #features h3, #features h4, #features h5, #features h6,
+#about h1, #about h2, #about h3, #about h4, #about h5, #about h6 {
+  color: #ff5722;
 }

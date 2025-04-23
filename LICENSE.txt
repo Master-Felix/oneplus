@@ -1,0 +1,8 @@
+
+PROPRIETARY LICENSE
+
+This project and its content are the exclusive property of OnePlusOne Accounting.
+
+Unauthorized copying, distribution, modification, or use of any portion of this codebase or design is strictly prohibited without written permission.
+
+© 2025 OnePlusOne Accounting. All rights reserved.

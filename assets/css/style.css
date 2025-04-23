@@ -961,19 +961,24 @@ img:hover {
 /* Read More Section */
 #read-more .card {
   border: none;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 #read-more .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-md);
 }
 
 #read-more .btn-orange {
-  font-size: 1rem;
-  padding: 0.5rem 1.5rem;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+#read-more .btn-orange:hover {
+  background-color: #e64a19;
 }
 
 .about-text {

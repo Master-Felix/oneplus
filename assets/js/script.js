@@ -27,7 +27,7 @@ const showToast = (() => {
 
   const showNextToast = () => {
     if (toastQueue.length === 0) return;
-    
+
     const container = createContainer();
     const { message, type } = toastQueue.shift();
 
@@ -43,8 +43,7 @@ const showToast = (() => {
       </div>`;
 
     container.appendChild(toast);
-    // Force reflow
-    toast.offsetHeight;
+    toast.offsetHeight; // Force reflow
     toast.classList.add('show');
 
     setTimeout(() => removeToast(toast), toastDuration);
@@ -66,7 +65,6 @@ const initNavbar = () => {
 
   if (!navbarCollapse || !navbar) return;
 
-  // Close navbar when clicking outside
   document.addEventListener('click', (e) => {
     if (!navbarCollapse.contains(e.target) && 
         !e.target.closest('.navbar-toggler') &&
@@ -75,14 +73,12 @@ const initNavbar = () => {
     }
   });
 
-  // Close navbar when clicking on a nav link
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
       navbarCollapse.classList.remove('show');
     });
   });
 
-  // Optimize scroll behavior
   let lastScrollTop = 0;
   let ticking = false;
 
@@ -90,15 +86,15 @@ const initNavbar = () => {
     if (!ticking) {
       window.requestAnimationFrame(() => {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
+
         navbar.classList.toggle('scrolled', scrollTop > 50);
-        
+
         if (scrollTop > lastScrollTop) {
           navbar.style.transform = `translateY(-${Math.min(scrollTop - lastScrollTop, navbar.offsetHeight)}px)`;
         } else {
           navbar.style.transform = 'translateY(0)';
         }
-        
+
         lastScrollTop = scrollTop;
         ticking = false;
       });
@@ -124,55 +120,19 @@ const initForms = () => {
       });
 
       if (response.ok) {
-        showToast(
-          "<i class='bi bi-check-circle me-2'></i>Thank you for your message! We'll get back to you soon.",
-          "success"
-        );
+        showToast("<i class='bi bi-check-circle me-2'></i>Thank you for your message! We'll get back to you soon.", "success");
         contactForm.reset();
       } else {
         throw new Error('Server responded with an error');
       }
     } catch (error) {
       console.error('Form submission error:', error);
-      showToast(
-        "<i class='bi bi-exclamation-triangle me-2'></i>Something went wrong. Please try again later.",
-        "danger"
-      );
+      showToast("<i class='bi bi-exclamation-triangle me-2'></i>Something went wrong. Please try again later.", "danger");
     }
   });
 };
 
-// Initialize theme handling
-
-const createContainer = () => {
-  if (!toastContainer) {
-    toastContainer = document.createElement("div");
-    toastContainer.id = "toast-container";
-    toastContainer.className = "position-fixed bottom-0 start-0 p-3 z-3";
-    document.body.appendChild(toastContainer);
-  }
-  return toastContainer;
-};
-
-const removeToast = (toast) => {
-  toast.classList.remove('show');
-  setTimeout(() => {
-    toast?.remove();
-    if (toastQueue.length > 0) {
-      showNextToast();
-    }
-  }, 150);
-};
-
-const showNextToast = () => {
-  if (toastQueue.length === 0) return;
-  
-  const container = createContainer();
-  const { message, type } = toastQueue.shift();
-  return container;
-};
-
-
+// Update theme icon
 const updateThemeIcon = (element, isDark) => {
   element.innerHTML = isDark ? '<i class="bi bi-sun-fill"></i>' : '<i class="bi bi-moon-fill"></i>';
   element.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
@@ -212,21 +172,18 @@ const initPricingToggle = () => {
     }
   };
 
-  // Initialize with monthly pricing
   renderPlans(false);
 
-  // Toggle handler
   pricingToggle.addEventListener("click", () => {
     const isYearly = pricingToggle.classList.toggle("active");
     renderPlans(isYearly);
 
-    // Update toggle button accessibility
     pricingToggle.setAttribute('aria-pressed', isYearly.toString());
     pricingToggle.setAttribute('aria-label', `Switch to ${isYearly ? 'monthly' : 'yearly'} pricing`);
   });
 };
 
-// Initialize collapsible functionality
+// Initialize collapsible content toggles
 const initCollapsible = () => {
   const collapsibleButtons = document.querySelectorAll("[data-bs-toggle='collapse']");
   if (!collapsibleButtons.length) return;
@@ -234,32 +191,23 @@ const initCollapsible = () => {
   collapsibleButtons.forEach((button) => {
     try {
       const targetId = button.getAttribute("data-bs-target");
-      if (!targetId) {
-        console.warn('Collapsible button missing data-bs-target attribute:', button);
-        return;
-      }
+      if (!targetId) return;
 
       const target = document.querySelector(targetId);
-      if (!target) {
-        console.warn(`Target element ${targetId} not found for collapsible button:`, button);
-        return;
-      }
+      if (!target) return;
 
-      // Update button text and accessibility when the collapse is shown
       target.addEventListener("shown.bs.collapse", () => {
         button.textContent = "Read Less";
         button.setAttribute('aria-expanded', 'true');
         button.setAttribute('aria-label', 'Show less content');
       });
 
-      // Update button text and accessibility when the collapse is hidden
       target.addEventListener("hidden.bs.collapse", () => {
         button.textContent = "Read More";
         button.setAttribute('aria-expanded', 'false');
         button.setAttribute('aria-label', 'Show more content');
       });
 
-      // Set initial state
       const isExpanded = target.classList.contains('show');
       button.setAttribute('aria-expanded', isExpanded.toString());
       button.setAttribute('aria-label', isExpanded ? 'Show less content' : 'Show more content');
@@ -269,19 +217,44 @@ const initCollapsible = () => {
   });
 };
 
-// Initialize all components when DOM is ready
+// Initialize everything
 document.addEventListener("DOMContentLoaded", () => {
   try {
-    initTheme();
+    initNavbar();
+    initForms();
     initPricingToggle();
     initCollapsible();
     AOS.init();
+
+    const backToTopButton = document.querySelector(".back-to-top");
+    if (backToTopButton) {
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) {
+          backToTopButton.classList.remove("d-none");
+        } else {
+          backToTopButton.classList.add("d-none");
+        }
+      });
+    }
   } catch (error) {
     console.error('Error during initialization:', error);
-    showToast('Something went wrong. Please refresh the page.', 'danger');
   }
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  AOS.init();
+// Back to top button functionality
+document.addEventListener("DOMContentLoaded", () => {
+  const backToTopButton = document.querySelector(".back-to-top");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      backToTopButton.classList.add("show");
+    } else {
+      backToTopButton.classList.remove("show");
+    }
+  });
+
+  backToTopButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 });
